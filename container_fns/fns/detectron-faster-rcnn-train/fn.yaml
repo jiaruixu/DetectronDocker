@@ -15,7 +15,7 @@ docker-volumes:
     container-path: /media/ngv/output
     read-only: False
   - host-path: "{dataset-path}"
-    container-path: /mnt/fcav/self_training/object_detection/dataset
+    container-path: /detectron/detectron/datasets/data
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
 
