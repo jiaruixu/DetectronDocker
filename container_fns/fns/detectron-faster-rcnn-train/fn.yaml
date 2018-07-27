@@ -5,10 +5,7 @@ docker-image: detectron
 args:
   - id: dataset-path
     default: /mnt/fcav/self_training/object_detection/dataset
-    help: 'path to dataset in VOC format'
-  - id: GTA-path
-    default: /mnt/fcav/PASCAL/repro_200k_filter/VOC2012/JPEGImages
-    help: 'path to dataset in VOC format'
+    help: 'path to dataset in jason format'
   - id: output-path
     default: /mnt/fcav/self_training/object_detection/upperbound1
     help: 'path to store training results'
@@ -18,9 +15,7 @@ docker-volumes:
     container-path: /media/ngv/output
     read-only: False
   - host-path: "{dataset-path}"
-    container-path: /detectron/detectron/datasets/data
-  - host-path: "{GTA-path}"
-    container-path: /detectron/detectron/datasets/data/GTA_Pascal_format/JPEGImages
+    container-path: /mnt/fcav/self_training/object_detection/dataset
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
 
