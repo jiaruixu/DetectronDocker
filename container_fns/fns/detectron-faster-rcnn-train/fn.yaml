@@ -5,10 +5,21 @@ docker-image: detectron
 args:
   - id: dataset-path
     default: /mnt/fcav/self_training/object_detection/dataset
-    help: 'path to dataset in jason format'
+    help: 'path to dataset with annotations in jason format'
   - id: output-path
     default: /mnt/fcav/self_training/object_detection/upperbound1
     help: 'path to store training results'
+  - id: config
+    help: 'YAML configuration file. See detectron github repo for examples.'
+    default: /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x.yaml
+  - id: pretrained-weights
+    help: 'pkl file containing pretrained weights'
+    default: /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+  - id: num_gpus
+    help: 'Number of GPUS to use for training'
+    default: 2
+
+
 
 docker-volumes:
   - host-path: "{output-path}"
@@ -16,10 +27,19 @@ docker-volumes:
     read-only: False
   - host-path: "{dataset-path}"
     container-path: /mnt/fcav/self_training/object_detection/dataset
+  - host-path: "{config}"
+    container-path: /detectron/configs/custom_config.yaml
+  - host-path: "{pretrained-weights}"
+    container-path: /detectron/pretrained.pkl
+
+
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
 
 command: |
   python2 tools/train_net.py
-  --cfg configs/12_2017_baselines/e2e_faster_rcnn_X-101-64x4d-FPN_1x.yaml
+  --multi-gpu-testing
+  --cfg /detectron/configs/custom_config.yaml
+  TRAIN.WEIGHTS /detectron/pretrained.pkl
   OUTPUT_DIR /media/ngv/output
+  NUM_GPUS {num_gpus}
