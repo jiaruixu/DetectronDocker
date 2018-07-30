@@ -17,7 +17,7 @@ args:
     default: /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
   - id: num_gpus
     help: 'Number of GPUS to use for training'
-    default: 2
+    default: 4
 
 
 
