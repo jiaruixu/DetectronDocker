@@ -8,10 +8,15 @@ ENV PYTHONPATH /usr/local/caffe2_build:${PYTHONPATH}
 ENV LD_LIBRARY_PATH /usr/local/caffe2_build/lib:${LD_LIBRARY_PATH}
 
 # Clone the Detectron repository
-RUN git clone https://github.com/facebookresearch/Detectron.git /detectron
+RUN git clone https://github.com/jiaruixu/Detectron-with-tensorboard.git /detectron
 
 # Install Python dependencies
 RUN pip install -r /detectron/requirements.txt
+
+# Install c2board
+RUN cd /detectron/tools/c2board && \
+    make && \
+    cd -
 
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
