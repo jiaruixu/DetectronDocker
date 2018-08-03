@@ -26,25 +26,3 @@ RUN make
 
 # [Optional] Build custom ops
 RUN make ops
-
-RUN apt-get update && apt-get install -y ninja-build
-RUN cd /root && \
-    git clone https://github.com/google/protobuf.git && \
-    cd protobuf && \
-    git checkout tags/v3.4.1 && \
-    mkdir build && \
-    cd build && \
-    cmake -G Ninja \
-      -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-      -DCMAKE_BUILD_TYPE=Release \
-      -Dprotobuf_BUILD_TESTS=OFF \
-      ../cmake  && \
-    ninja  && \
-    ninja install
-
-# Install c2board
-RUN cd /detectron/tools/c2board && \
-    make && \
-    cd -
-
-WORKDIR /detectron
