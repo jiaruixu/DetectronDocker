@@ -54,11 +54,19 @@ _DATASETS = {
         _DEVKIT_DIR:
             _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
     },
-    'voc_GTA_caronly_val_sample500':{
+    'voc_GTA_caronly_train_sample8000':{
         _IM_DIR:
             _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
         _ANN_FN:
-            _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_val_sample500.json',
+            _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_train_sample8000.json',
+        _DEVKIT_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
+    },
+    'voc_GTA_caronly_val_sample2000':{
+        _IM_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
+        _ANN_FN:
+            _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_val_sample2000.json',
         _DEVKIT_DIR:
             _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
     },
