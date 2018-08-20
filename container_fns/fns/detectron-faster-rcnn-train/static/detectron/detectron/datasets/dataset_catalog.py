@@ -119,13 +119,13 @@ _DATASETS = {
     },
     'coco_2014_train': {
         _IM_DIR:
-            '/mnt/fcav/datasets/COCO/train2014',
+            _DATA_DIR + '/COCO/train2014',
         _ANN_FN:
             _DATA_DIR + '/COCO/annotations_drop/instances_train2014_sample20000.json'
     },
     'coco_2014_val': {
         _IM_DIR:
-            '/mnt/fcav/datasets/COCO/val2014',
+            _DATA_DIR + '/COCO/val2014',
         _ANN_FN:
             _DATA_DIR + '/COCO/annotations_drop/instances_val2014_sample20000.json'
     },
