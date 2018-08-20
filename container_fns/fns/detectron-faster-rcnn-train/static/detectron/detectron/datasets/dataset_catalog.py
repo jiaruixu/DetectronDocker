@@ -38,6 +38,12 @@ _RAW_DIR = 'raw_dir'
 
 # Available datasets
 _DATASETS = {
+    'coco_KITTI_caronly_val1000':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_val1000.json'
+    },
     'voc_GTA_caronly_train_sample8000':{
         _IM_DIR:
             _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
