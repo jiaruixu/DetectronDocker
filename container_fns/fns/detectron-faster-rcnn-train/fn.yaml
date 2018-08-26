@@ -10,6 +10,9 @@ args:
     help: 'path to store training results'
   - id: config
     help: 'YAML configuration file. See detectron github repo for examples.'
+  - id: region-proposal-path
+    help: 'region proposal pkl file directory'
+    default: /mnt/fcav/self_training/object_detection/region_proposals
   - id: pretrained-weights
     help: 'pkl file containing pretrained weights'
     default: /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
@@ -29,7 +32,8 @@ docker-volumes:
     container-path: /detectron/configs/custom_config.yaml
   - host-path: "{pretrained-weights}"
     container-path: /detectron/pretrained.pkl
-
+  - host-path: "{region-proposal-path}"
+    container-path: /mnt/fcav/self_training/object_detection/region_proposals
 
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
@@ -37,6 +41,7 @@ logfile-path: "{output-path}/e2e-training-logs.txt"
 command: |
   python2 tools/train_net.py
   --multi-gpu-testing
+  --skip-test
   --cfg /detectron/configs/custom_config.yaml
   TRAIN.WEIGHTS /detectron/pretrained.pkl
   OUTPUT_DIR /media/ngv/output
