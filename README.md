@@ -22,7 +22,7 @@ Get upperbound1
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_upperbound1.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/upperbound1 \
+  --output-path /mnt/fcav/self_training/object_detection/upperbound1_24_27 \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
