@@ -19,6 +19,13 @@ container-fn detectron-faster-rcnn-train \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_200k.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/lowerbound_200k \
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+```
+
 Get upperbound1
 
 ```
