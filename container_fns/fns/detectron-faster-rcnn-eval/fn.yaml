@@ -1,0 +1,51 @@
+id: detectron-faster-rcnn-eval
+name: Faster RCNN evaluating end2end
+docker-image: detectron
+
+args:
+  - id: dataset-path
+    default: /mnt/fcav/self_training/object_detection/dataset
+    help: 'path to dataset with annotations in jason format'
+  - id: output-path
+    help: 'path to store training results'
+  - id: config
+    help: 'YAML configuration file. See detectron github repo for examples.'
+  - id: region-proposal-path
+    help: 'region proposal pkl file directory'
+    default: /mnt/fcav/self_training/object_detection/region_proposals
+  - id: test-weights
+    help: 'path to pkl file'
+  - id: num-gpus
+    help: 'Number of GPUS to use for training'
+    default: 4
+  - id: start-checkpoint
+    help: 'start checkpoint (inclusive)'
+    default: 0
+
+
+
+docker-volumes:
+  - host-path: "{output-path}"
+    container-path: /media/ngv/output
+    read-only: False
+  - host-path: "{dataset-path}"
+    container-path: /mnt/fcav/self_training/object_detection/dataset
+  - host-path: "{config}"
+    container-path: /detectron/configs/custom_config.yaml
+  - host-path: "{test-weights}"
+    container-path: /detectron/weights
+  - host-path: "{region-proposal-path}"
+    container-path: /mnt/fcav/self_training/object_detection/region_proposals
+
+
+logfile-path: "{output-path}/e2e-eval-logs.txt"
+
+command: |
+  python2 tools/eval.py 
+  --cfg /detectron/configs/custom_config.yaml
+  --start-checkpoint {start-checkpoint}
+  --multi-gpu-testing
+  TEST.WEIGHTS /detectron/weights
+  NUM_GPUS {num-gpus}
+  OUTPUT_DIR /media/ngv/output
+
