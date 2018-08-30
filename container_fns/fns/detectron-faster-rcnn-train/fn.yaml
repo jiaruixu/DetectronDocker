@@ -12,7 +12,7 @@ args:
     help: 'YAML configuration file. See detectron github repo for examples.'
   - id: region-proposal-path
     help: 'region proposal pkl file directory'
-    default: /mnt/fcav/self_training/object_detection/region_proposals
+    default: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
   - id: pretrained-weights
     help: 'pkl file containing pretrained weights'
     default: /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
