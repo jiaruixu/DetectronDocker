@@ -33,7 +33,7 @@ docker-volumes:
   - host-path: "{pretrained-weights}"
     container-path: /detectron/pretrained.pkl
   - host-path: "{region-proposal-path}"
-    container-path: /mnt/fcav/self_training/object_detection/region_proposals
+    container-path: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
 
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
