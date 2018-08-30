@@ -50,17 +50,23 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_val.json'
     },
+    'coco_KITTI_caronly_train':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train.json'
+    },
+    'coco_KITTI_train_with_prediction':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
+    },
     'coco_KITTI_tracking_imagesonly':{
         _IM_DIR:
             _DATA_DIR + '/KITTI_tracking/image_2',
         _ANN_FN:
             _DATA_DIR + '/KITTI_tracking/coco_KITTI_tracking_imagesonly.json'
-    },
-    'coco_KITTI_tracking_train_with_prediction':{
-        _IM_DIR:
-            _DATA_DIR + '/KITTI_tracking/image_2',
-        _ANN_FN:
-            _DATA_DIR + '/KITTI_tracking/annotations/instances_caronly_train_with_prediction.json'
     },
     'voc_GTA_caronly_train':{
         _IM_DIR:

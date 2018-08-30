@@ -110,6 +110,13 @@ container-fn detectron-faster-rcnn-train \
 
 ```
 container-fn detectron-faster-rcnn-eval \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/lowerbound_discard/eval \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_discard/train/voc_GTA_caronly_train_and_voc_GTA_caronly_val/generalized_rcnn
+```
+
+```
+container-fn detectron-faster-rcnn-eval \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_evalKITTI1000.yaml \
   --output-path /mnt/fcav/self_training/object_detection/lowerbound/eval \
   --test-weights /mnt/fcav/self_training/object_detection/lowerbound/train/voc_GTA_caronly_train_sample8000/generalized_rcnn
