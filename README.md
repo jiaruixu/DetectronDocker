@@ -48,37 +48,37 @@ Get baseline with soft sampling
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTAPretrained/model_wo_fast_rcnn.pkl
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_GTA8k_pred.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_retrain_GTA8k_pred \
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_trainconv.yaml \
   --output-path /mnt/fcav/self_training/object_detection/baseline_ss_trainconv \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTAPretrained/model_wo_fast_rcnn_and_backbone.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn_and_backbone.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_GTAonly.yaml \
   --output-path /mnt/fcav/self_training/object_detection/baseline_ss_GTAonly \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTAPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_trainall.yaml \
   --output-path /mnt/fcav/self_training/object_detection/baseline_ss_trainall \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTAPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss.yaml \
   --output-path /mnt/fcav/self_training/object_detection/baseline_ss_lr \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTAPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
 Get upperbound2
