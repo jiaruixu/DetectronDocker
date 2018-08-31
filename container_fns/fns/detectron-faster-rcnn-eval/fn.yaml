@@ -33,7 +33,7 @@ docker-volumes:
   - host-path: "{config}"
     container-path: /detectron/configs/custom_config.yaml
   - host-path: "{test-weights}"
-    container-path: /detectron/weights
+    container-path: /media/ngv/weights
   - host-path: "{region-proposal-path}"
     container-path: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
 
