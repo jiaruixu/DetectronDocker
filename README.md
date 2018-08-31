@@ -81,6 +81,7 @@ container-fn detectron-faster-rcnn-train \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
+
 Test soft sampling
 
 ```
