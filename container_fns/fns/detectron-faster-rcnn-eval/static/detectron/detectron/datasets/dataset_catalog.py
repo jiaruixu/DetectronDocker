@@ -56,6 +56,18 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train.json'
     },
+    'coco_KITTI_caronly_tp_preds':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_tp_preds.json'
+    },
+    'coco_KITTI_caronly_tp_preds_no_fn':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_tp_preds_no_fn.json'
+    },
     'coco_KITTI_train_with_prediction':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
@@ -73,6 +85,14 @@ _DATASETS = {
             _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
         _ANN_FN:
             _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_train.json',
+        _DEVKIT_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
+    },
+    'voc_GTA_caronly_trainval':{
+        _IM_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
+        _ANN_FN:
+            _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_trainval.json',
         _DEVKIT_DIR:
             _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
     },
