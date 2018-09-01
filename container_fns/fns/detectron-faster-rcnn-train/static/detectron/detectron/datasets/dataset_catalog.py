@@ -62,6 +62,12 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_tp_preds.json'
     },
+    'coco_KITTI_caronly_tp_preds_no_fn':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_tp_preds_no_fn.json'
+    },
     'coco_KITTI_train_with_prediction':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
