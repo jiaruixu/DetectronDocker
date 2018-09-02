@@ -1,0 +1,39 @@
+id: detectron-faster-rcnn-feedforward
+name: Faster RCNN generating region proposals or predictions
+docker-image: detectron
+
+args:
+  - id: dataset-path
+    default: /mnt/fcav/self_training/object_detection/dataset
+    help: 'path to dataset with annotations in jason format'
+  - id: output-path
+    help: 'path to store training results'
+  - id: config
+    help: 'YAML configuration file. See detectron github repo for examples.'
+  - id: test-weights
+    help: 'path to pkl file'
+  - id: num-gpus
+    help: 'Number of GPUS to use for training'
+    default: 4
+
+docker-volumes:
+  - host-path: "{output-path}"
+    container-path: /media/ngv/output
+    read-only: False
+  - host-path: "{dataset-path}"
+    container-path: /mnt/fcav/self_training/object_detection/dataset
+  - host-path: "{config}"
+    container-path: /detectron/configs/custom_config.yaml
+  - host-path: "{test-weights}"
+    container-path: /detectron/weights
+
+
+logfile-path: "{output-path}/e2e-eval-logs.txt"
+
+command: |
+  python2 tools/test_net.py 
+  --cfg /detectron/configs/custom_config.yaml
+  --multi-gpu-testing
+  TEST.WEIGHTS /detectron/weights
+  NUM_GPUS {num-gpus}
+  OUTPUT_DIR /media/ngv/output
