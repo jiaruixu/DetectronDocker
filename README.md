@@ -40,8 +40,8 @@ Get baseline
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_GTA8k_pred.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_retrain_GTA8k_pred \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/baseline \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
@@ -50,8 +50,8 @@ Get baseline with soft sampling
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_GTA8k_pred.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_retrain_GTA8k_pred \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_0.99_ftl_add_images \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
@@ -149,6 +149,8 @@ container-fn detectron-faster-rcnn-eval \
   --test-weights /mnt/fcav/self_training/object_detection/baseline_ss_retrain_GTA8k_pred/train/voc_GTA_caronly_train_sample8000_coco_KITTI_train_with_prediction/generalized_rcnn
 ```
 
+lowerbound
+
 ```
 container-fn detectron-faster-rcnn-eval \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_evalKITTI1000.yaml \
@@ -156,11 +158,50 @@ container-fn detectron-faster-rcnn-eval \
   --test-weights /mnt/fcav/self_training/object_detection/lowerbound/train/voc_GTA_caronly_train_sample8000/generalized_rcnn
 ```
 
-### detectron-faster-rcnn-region-proposal
+### detectron-faster-rcnn-feedforward (generate region proposals or prediction)
+
+#### Region proposals
+
+on GTA 8k
 
 ```
-container-fn detectron-faster-region-proposal  \
+container-fn detectron-faster-rcnn-feedforward  \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_RPNONLY_GTA_train8k.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+```
+
+on KITTI prediction
+
+```
+container-fn detectron-faster-rcnn-feedforward  \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_RPNONLY_KITTI_train_prediction.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+```
+
+on KITTI val 1000
+```
+container-fn detectron-faster-rcnn-feedforward  \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_RPNONLY_KITTI_eval_1k.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+```
+
+on KITTI train
+
+```
+container-fn detectron-faster-rcnn-feedforward  \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_RPNONLY_KITTI_train.yaml \
   --output-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
-  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train:voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+```
+
+#### Predictions
+
+```
+container-fn detectron-faster-rcnn-feedforward  \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_evalKITTI.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/prediction_final \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
 ```
