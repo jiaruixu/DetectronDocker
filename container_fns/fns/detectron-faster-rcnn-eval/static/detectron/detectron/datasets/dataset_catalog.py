@@ -56,6 +56,30 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train.json'
     },
+    'coco_KITTI_train_with_prediction':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
+    },
+    'coco_KITTI_caronly_train_with_prediction_forward':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_forward.json'
+    },
+    'coco_KITTI_caronly_train_with_prediction_fb':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_forward_backward.json'
+    },
+    'coco_KITTI_caronly_train_with_prediction_fb_add_images':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_forward_backward_additional_images.json'
+    },
     'coco_KITTI_caronly_tp_preds':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
@@ -85,12 +109,6 @@ _DATASETS = {
             _DATA_DIR + '/KITTI/image_2',
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_tp_preds_no_fn_with_20fp.json'
-    },
-    'coco_KITTI_train_with_prediction':{
-        _IM_DIR:
-            _DATA_DIR + '/KITTI/image_2',
-        _ANN_FN:
-            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
     },
     'coco_KITTI_tracking_imagesonly':{
         _IM_DIR:
