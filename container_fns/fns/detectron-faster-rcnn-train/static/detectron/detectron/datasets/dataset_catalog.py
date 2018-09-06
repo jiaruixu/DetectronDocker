@@ -68,13 +68,13 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_forward.json'
     },
-    'coco_KITTI_caronly_train_with_prediction_forward_backward':{
+    'coco_KITTI_caronly_train_with_prediction_fb':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_forward_backward.json'
     },
-    'coco_KITTI_caronly_train_with_prediction_forward_backward_additional_images':{
+    'coco_KITTI_caronly_train_with_prediction_fb_add_images':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
         _ANN_FN:
