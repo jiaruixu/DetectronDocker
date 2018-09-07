@@ -15,6 +15,9 @@ args:
   - id: num-gpus
     help: 'Number of GPUS to use for training'
     default: 4
+  - id: gpus
+    help: 'used to set CUDA_VISIBLE_DEVICES'
+    default: '0,1,2,3'
 
 docker-volumes:
   - host-path: "{output-path}"
@@ -27,6 +30,9 @@ docker-volumes:
   - host-path: "{test-weights}"
     container-path: /detectron/weights
 
+docker-env:
+  - key: "CUDA_VISIBLE_DEVICES"
+    value: "{gpus}"
 
 logfile-path: "{output-path}/e2e-eval-logs.txt"
 

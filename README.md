@@ -51,7 +51,15 @@ Get baseline with soft sampling
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_0.99_ftl_add_images \
+  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_fb_add_images_nocontinue \
+  --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_f_KITTIonly.yaml \
+  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_f_KITTIonly \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
@@ -59,7 +67,7 @@ container-fn detectron-faster-rcnn-train \
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_fb_add_images.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_forward_backward_add_images \
+  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_forward_backward_add_images_step \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```

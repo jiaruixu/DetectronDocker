@@ -19,8 +19,9 @@ args:
   - id: num_gpus
     help: 'Number of GPUS to use for training'
     default: 4
-
-
+  - id: gpus
+    help: 'used to set CUDA_VISIBLE_DEVICES'
+    default: '0,1,2,3'
 
 docker-volumes:
   - host-path: "{output-path}"
@@ -35,6 +36,9 @@ docker-volumes:
   - host-path: "{region-proposal-path}"
     container-path: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
 
+docker-env:
+  - key: "CUDA_VISIBLE_DEVICES"
+    value: "{gpus}"
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
 
