@@ -99,13 +99,13 @@ def checkNewCheckpoint(args, cfg, logger):
 
 
 def sortMethod(f):
-    iter_string = re.findall(r'(?<=model_iter)\d+(?=\.pkl)', f)
+    iter_string = re.findall(r'(?<=model_iter_iter)\d+(?=\.pkl)', f)
     return int(iter_string[0])
 
 def extract(files):
     files_new = []
     for f in files:
-        iter_string = re.findall(r'(?<=model_iter)\d+(?=\.pkl)', f)
+        iter_string = re.findall(r'(?<=model_iter_iter)\d+(?=\.pkl)', f)
         if len(iter_string) > 0 and (int(iter_string[0]) >= args.start_checkpoint):
             files_new.append(f)
     return files_new
@@ -114,7 +114,7 @@ def eval(args, cfg, logger, files):
     files = extract(files)
     files.sort(key=sortMethod)
     for f in files:
-        iter_string = re.findall(r'(?<=model_iter)\d+(?=\.pkl)', f)
+        iter_string = re.findall(r'(?<=model_iter_iter)\d+(?=\.pkl)', f)
         checkpoint_iter = int(iter_string[0])
         resume_weights_file = f
         weights_file = os.path.join(cfg.TEST.WEIGHTS, resume_weights_file)
