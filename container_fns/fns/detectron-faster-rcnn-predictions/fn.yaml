@@ -10,9 +10,6 @@ args:
     help: 'path to store training results'
   - id: config
     help: 'YAML configuration file. See detectron github repo for examples.'
-  - id: region-proposal-path
-    help: 'region proposal pkl file directory'
-    default: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
   - id: test-weights
     help: 'path to pkl file'
   - id: num-gpus
@@ -32,8 +29,6 @@ docker-volumes:
     container-path: /detectron/configs/custom_config.yaml
   - host-path: "{test-weights}"
     container-path: /detectron/weights
-  - host-path: "{region-proposal-path}"
-    container-path: /mnt/fcav/self_training/object_detection/region_proposals_GTA200k
 
 docker-env:
   - key: "CUDA_VISIBLE_DEVICES"
