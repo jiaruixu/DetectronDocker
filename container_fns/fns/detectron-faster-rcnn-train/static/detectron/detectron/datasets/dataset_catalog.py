@@ -25,7 +25,7 @@ import os
 
 # Path to data dir
 # _DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-_DATA_DIR = '/mnt/fcav/self_training/object_detection/dataset'
+_DATA_DIR = '/mnt/fcav/self_training/final_results/dataset'
 
 # Required dataset entry keys
 _IM_DIR = 'image_directory'
