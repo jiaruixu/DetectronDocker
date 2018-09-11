@@ -106,6 +106,12 @@ def get_fast_rcnn_blob_names(is_training=True):
                 for lvl in range(k_min, k_max + 1):
                     blob_names += ['keypoint_rois_fpn' + str(lvl)]
                 blob_names += ['keypoint_rois_idx_restore_int32']
+    ### added by srmani
+    if is_training and cfg.TRAIN.EXPORT_FRCNN_DATA:
+        # Normally, these blobs are present in workspace only when RPN is trained as well
+        # but we need these info to map proposals to images
+        blob_names += ['im_info', 'roidb']
+    ### end added by srmani
     return blob_names
 
 
@@ -113,6 +119,14 @@ def add_fast_rcnn_blobs(blobs, im_scales, roidb):
     """Add blobs needed for training Fast R-CNN style models."""
     # Sample training RoIs from each image and append them to the blob lists
     for im_i, entry in enumerate(roidb):
+        ### added by srmani
+        if cfg.TRAIN.EXPORT_FRCNN_DATA:
+            scale = im_scales[im_i]
+            im_height = np.round(entry['height'] * scale)
+            im_width = np.round(entry['width'] * scale)
+            im_info = np.array([[im_height, im_width, scale]], dtype=np.float32)
+            blobs['im_info'].append(im_info)
+        ### end added by srmani
         frcn_blobs = _sample_rois(entry, im_scales[im_i], im_i)
         for k, v in frcn_blobs.items():
             blobs[k].append(v)
@@ -123,6 +137,20 @@ def add_fast_rcnn_blobs(blobs, im_scales, roidb):
     # Add FPN multilevel training RoIs, if configured
     if cfg.FPN.FPN_ON and cfg.FPN.MULTILEVEL_ROIS:
         _add_multilevel_rois(blobs)
+
+    ### added by srmani
+    if cfg.TRAIN.EXPORT_FRCNN_DATA:
+        valid_keys = [
+            'has_visible_keypoints', 'boxes', 'segms', 'seg_areas', 'gt_classes',
+            'gt_overlaps', 'is_crowd', 'box_to_gt_ind_map', 'gt_keypoints', 'image', 'flipped'
+        ]
+        minimal_roidb = [{} for _ in range(len(roidb))]
+        for i, e in enumerate(roidb):
+            for k in valid_keys:
+                if k in e:
+                    minimal_roidb[i][k] = e[k]
+        blobs['roidb'] = blob_utils.serialize(minimal_roidb)
+    ### end added by srmani
 
     # Perform any final work and validity checks after the collating blobs for
     # all minibatch images
@@ -206,16 +234,20 @@ def _sample_rois(roidb, im_scale, batch_idx):
         keypoint_rcnn_roi_data.add_keypoint_rcnn_blobs(
             blob_dict, roidb, fg_rois_per_image, fg_inds, im_scale, batch_idx
         )
+
     ### added by srmani
     if cfg.TRAIN.SOFT_SAMPLING_ON:
-        ss_fg_inds = np.where(max_overlaps[keep_inds] >= 0.5)[0]
-        ss_bg_inds = np.where(max_overlaps[keep_inds] < 0.5)[0]
-        label_weights = np.zeros(keep_inds.shape[0], dtype=max_overlaps.dtype)
-        label_weights[ss_fg_inds] = 1   # high weight for positive instances
-        sigma1 = 0.25
-        sigma2 = 50.0
-        sigma3 = 20.0
-        label_weights[ss_bg_inds] = sigma1 + (1-sigma1)*np.exp(-sigma2*np.exp(-sigma3 * max_overlaps[keep_inds][ss_bg_inds]))
+        if roidb['soft_sampling'] == 1:
+            label_weights = np.zeros(keep_inds.shape[0], dtype=max_overlaps.dtype)
+            ss_fg_inds = np.where(max_overlaps[keep_inds] >= 0.5)[0]
+            ss_bg_inds = np.where(max_overlaps[keep_inds] < 0.5)[0]
+            label_weights[ss_fg_inds] = 1   # high weight for positive instances
+            sigma1 = 0.25
+            sigma2 = 50.0
+            sigma3 = 20.0
+            label_weights[ss_bg_inds] = sigma1 + (1-sigma1)*np.exp(-sigma2*np.exp(-sigma3 * max_overlaps[keep_inds][ss_bg_inds]))
+        else:
+            label_weights = np.ones(keep_inds.shape[0], dtype=max_overlaps.dtype)
         blob_dict['label_weights'] = label_weights
     ### end added by srmani
     return blob_dict
