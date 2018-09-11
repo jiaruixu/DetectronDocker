@@ -4,7 +4,7 @@ docker-image: detectron
 
 args:
   - id: dataset-path
-    default: /mnt/fcav/self_training/object_detection/dataset
+    default: /mnt/fcav/self_training/final_results/dataset
     help: 'path to dataset with annotations in jason format'
   - id: output-path
     help: 'path to store training results'
