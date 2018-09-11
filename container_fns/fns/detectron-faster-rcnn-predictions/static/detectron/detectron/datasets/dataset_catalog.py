@@ -25,7 +25,7 @@ import os
 
 # Path to data dir
 # _DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-_DATA_DIR = '/mnt/fcav/self_training/object_detection/dataset'
+_DATA_DIR = '/mnt/fcav/self_training/final_results/dataset'
 
 # Required dataset entry keys
 _IM_DIR = 'image_directory'
@@ -61,6 +61,12 @@ _DATASETS = {
             _DATA_DIR + '/KITTI/image_2',
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
+    },
+    'coco_KITTI_caronly_train_with_prediction_0.99':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction_0.99.json'
     },
     'coco_KITTI_caronly_train_with_prediction_forward':{
         _IM_DIR:
