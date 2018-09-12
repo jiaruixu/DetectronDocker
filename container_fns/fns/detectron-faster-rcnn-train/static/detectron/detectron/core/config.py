@@ -138,10 +138,6 @@ __C.TRAIN.ASPECT_GROUPING = True
 # Soft sampling re-weights gradients from ROIs according to
 # overlap to minimize effect of missing labels
 __C.TRAIN.SOFT_SAMPLING_ON = False
-
-# When backbone is frozen, the Fast RCNN branch can be trained externally
-# using proposals from different images and not necessarily from single image
-__C.TRAIN.EXPORT_FRCNN_DATA = False
 ### end added by srmani
 
 # ---------------------------------------------------------------------------- #
@@ -982,9 +978,6 @@ __C.EXPECTED_RESULTS = []
 # Absolute and relative tolerance to use when comparing to EXPECTED_RESULTS
 __C.EXPECTED_RESULTS_RTOL = 0.1
 __C.EXPECTED_RESULTS_ATOL = 0.005
-# When the expected value specifies a mean and standard deviation, we check
-# that the actual value is within mean +/- SIGMA_TOL * std
-__C.EXPECTED_RESULTS_SIGMA_TOL = 4
 # Set to send email in case of an EXPECTED_RESULTS failure
 __C.EXPECTED_RESULTS_EMAIL = b''
 
