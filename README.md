@@ -72,6 +72,22 @@ container-fn detectron-faster-rcnn-train \
   --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_f_lower_lr.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_lower_lr \
+  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_f_more_iter.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_more_iter \
+  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+```
+
 Get upperbound2
 
 ```
@@ -163,9 +179,9 @@ baseline_ss
 
 ```
 container-fn detectron-faster-rcnn-eval \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_GTA8k_pred_evalKITTIval1k.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_retrain_GTA8k_pred/eval \
-  --test-weights /mnt/fcav/self_training/object_detection/baseline_ss_retrain_GTA8k_pred/train/voc_GTA_caronly_train_sample8000_coco_KITTI_train_with_prediction/generalized_rcnn
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss/eval \
+  --test-weights /mnt/fcav/self_training/final_results/baseline_ss/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_train_with_prediction/generalized_rcnn
 ```
 
 ```
@@ -197,17 +213,23 @@ new-scheme
 
 ```
 container-fn detectron-faster-rcnn-eval \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_evalKITTI1000.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/new-train-scheme/eval_GTA8k_KITTI-GT \
-  --start-checkpoint 25000 \
-  --test-weights /mnt/fcav/self_training/ws-mani/ws-training-scheme/FRCNN_GTA8k_KITTI-GT
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/new_training_scheme/eval1024 \
+  --test-weights /mnt/fcav/self_training/ws-mani/ws-training-scheme/FRCNN_GTA8k_KITTI-FTL/bs1024
 ```
 
 ```
 container-fn detectron-faster-rcnn-eval \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_0.99.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/new-train-scheme/eval_FRCNN_GTA8k_KITTI-prediction \
-  --test-weights /mnt/fcav/self_training/ws-mani/ws-training-scheme/FRCNN_GTA8k_KITTI-prediction
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/new_training_scheme/eval2048 \
+  --test-weights /mnt/fcav/self_training/ws-mani/ws-training-scheme/FRCNN_GTA8k_KITTI-FTL/bs2048
+```
+
+```
+container-fn detectron-faster-rcnn-eval \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/new_training_scheme/eval2048_bbox_weights \
+  --test-weights /mnt/fcav/self_training/ws-mani/ws-training-scheme/FRCNN_GTA8k_KITTI-FTL/bs2048_bbox_weights
 ```
 
 ### detectron-faster-rcnn-feedforward (generate region proposals or prediction)
@@ -336,9 +358,9 @@ GTA8k+KITTI with prediction
 
 ```
 container-fn detectron-faster-rcnn-predictions  \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_evalKITTI1000.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline_ss_0.99/predictions_1920 \
-  --test-weights /mnt/fcav/self_training/object_detection/baseline_ss_0.99/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_train_with_prediction_0.99/generalized_rcnn/model_final.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss/predictions \
+  --test-weights /mnt/fcav/self_training/final_results/baseline_ss/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_train_with_prediction/generalized_rcnn/model_final.pkl
 ```
 
 lowerbound
