@@ -69,7 +69,7 @@ def parse_args():
         '--start-checkpoint',
         dest='start_checkpoint',
         help='start checkpoint (exclusive)',
-        default=0,
+        default=1,
         type=int,
     )
     parser.add_argument(
