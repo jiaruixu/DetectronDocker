@@ -109,9 +109,6 @@ def _get_image_blob(roidb):
         elif 'kitti' in roidb[i]['image'].lower():
             target_size = cfg.TRAIN.SCALES[1]
         else:
-            logger.warn(
-                'Image does not belong to KITTI nor GTA. So using random scale'
-                ' for image {}'.format(roidb[i]['image']))
             target_size = cfg.TRAIN.SCALES[scale_inds[i]]
         """End modified by Jiarui"""
         im, im_scale = blob_utils.prep_im_for_blob(
