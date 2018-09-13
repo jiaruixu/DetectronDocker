@@ -139,7 +139,7 @@ class JsonDataset(object):
         if cfg.TRAIN.SOFT_SAMPLING_ON:
             if 'gta' in im_path.lower():
                 entry['soft_sampling'] = 0
-            elif 'kitti' in im_path.lower():
+            elif 'kitti' in im_path.lower() or 'cityscapes' in im_path.lower():
                 entry['soft_sampling'] = 1
             else:
                 logger.warn('Image does not belong to KITTI nor GTA. So disabling soft sampling for image {}'.format(im_path))
