@@ -62,6 +62,18 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
     },
+    'coco_KITTI_object_train_with_prediction_2nd_boot':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/annotations/instances_caronly_train_with_predictions.json'
+    },
+    'coco_KITTI_object_train_with_prediction_2nd_boot_ftl':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/annotations/instances_caronly_train_with_predictions_ftl.json'
+    },
     'coco_KITTI_caronly_train_with_prediction':{
         _IM_DIR:
             _DATA_DIR + '/KITTI_tracking_FTL/image_2',

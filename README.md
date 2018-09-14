@@ -36,22 +36,35 @@ container-fn detectron-faster-rcnn-train \
   --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
 ```
 
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_upperbound1_cityscapes.yaml \
+  --output-path /mnt/fcav/self_training/final_results/cityscapes/upperbound \
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+```
+
 Get baseline
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/baseline \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_not_freeze.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_not_freeze \
   --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_cityscapes.yaml \
-  --output-path /mnt/fcav/self_training/final_results/cityscapes/baseline \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k  \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --output-path /mnt/fcav/self_training/final_results/cityscapes/baseline_not_freeze \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_f_not_freeze.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_not_freeze \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 Get baseline with soft sampling
@@ -74,10 +87,9 @@ container-fn detectron-faster-rcnn-train \
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_f_lower_lr_more_iter.yaml \
-  --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_lower_lr_more_iter \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_ss_f_not_freeze.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_not_freeze2 \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
@@ -103,40 +115,35 @@ Test localization error
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_localization_error_test.yaml \
   --output-path /mnt/fcav/self_training/final_results/localization_error \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_localization_error_test_no_fn.yaml \
   --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_localization_error_test_no_fn_10fp.yaml \
   --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_10fp \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_localization_error_test_no_fn_25fp.yaml \
   --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_25fp \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_localization_error_test_no_fn_20fp.yaml \
   --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_20fp \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/object_detection/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 Test soft sampling
@@ -377,8 +384,8 @@ container-fn detectron-faster-rcnn-predictions \
 ```
 container-fn detectron-faster-rcnn-predictions \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_cityscapes_train.yaml \
-  --output-path /mnt/fcav/self_training/final_results/cityscapes/lowerbound \
-  --test-weights /mnt/fcav/self_training/final_results/lowerbound/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+  --output-path /mnt/fcav/self_training/final_results/cityscapes/baseline_not_freeze/predictions10999 \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_iter34999.pkl
 ```
 
 upperbound1
