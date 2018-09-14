@@ -32,8 +32,7 @@ Get upperbound1
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_upperbound1.yaml \
   --output-path /mnt/fcav/self_training/final_results/upperbound1 \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 ```
@@ -49,7 +48,6 @@ Get baseline
 container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_not_freeze.yaml \
   --output-path /mnt/fcav/self_training/final_results/baseline_not_freeze \
-  --region-proposal-path /mnt/fcav/self_training/object_detection/region_proposals_GTA200k \
   --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
@@ -65,6 +63,13 @@ container-fn detectron-faster-rcnn-train \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_f_not_freeze.yaml \
   --output-path /mnt/fcav/self_training/final_results/baseline_ss_f_not_freeze \
   --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_f_not_freeze_2nd_boot.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_f_not_freeze_2nd_boot \
+  --pretrained-weights /mnt/fcav/self_training/final_results/baseline_f_not_freeze/train/model_iter8999.pkl
 ```
 
 Get baseline with soft sampling
@@ -369,9 +374,9 @@ container-fn detectron-faster-rcnn-feedforward  \
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_kitti_train.yaml \
-  --output-path /mnt/fcav/self_training/final_results/lowerbound/predictions \
-  --test-weights /mnt/fcav/self_training/final_results/lowerbound/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_KITTI_train.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_f_not_freeze/predictions8999 \
+  --test-weights /mnt/fcav/self_training/final_results/baseline_f_not_freeze/train/model_iter8999.pkl
 ```
 
 ```
