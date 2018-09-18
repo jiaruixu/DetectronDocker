@@ -4,7 +4,7 @@ docker-image: detectron
 
 args:
   - id: dataset-path
-    default: /mnt/fcav/self_training/final_results/dataset
+    default: /mnt/fcav/self_training/paper_results/dataset
     help: 'path to dataset with annotations in jason format'
   - id: output-path
     help: 'path to store training results'
@@ -28,7 +28,7 @@ docker-volumes:
     container-path: /media/ngv/output
     read-only: False
   - host-path: "{dataset-path}"
-    container-path: /mnt/fcav/self_training/final_results/dataset
+    container-path: /mnt/fcav/self_training/paper_results/dataset
   - host-path: "{config}"
     container-path: /detectron/configs/custom_config.yaml
   - host-path: "{test-weights}"

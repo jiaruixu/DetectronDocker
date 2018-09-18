@@ -25,7 +25,7 @@ import os
 
 # Path to data dir
 # _DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-_DATA_DIR = '/mnt/fcav/self_training/final_results/dataset'
+_DATA_DIR = '/mnt/fcav/self_training/paper_results/dataset'
 
 # Required dataset entry keys
 _IM_DIR = 'image_directory'
@@ -62,11 +62,11 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/KITTI/annotations/instances_caronly_train_with_prediction.json'
     },
-    'coco_KITTI_object_train_with_prediction_2nd_boot_ftl_selected':{
+    'coco_KITTI_object_train_with_prediction_2nd_boot':{
         _IM_DIR:
-            _DATA_DIR + '/KITTI_tracking_FTL_2nd_selected/image_2',
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/image_2',
         _ANN_FN:
-            _DATA_DIR + '/KITTI_tracking_FTL_2nd_selected/annotations/instances_caronly_train_with_predictions_ftl.json'
+            _DATA_DIR + '/KITTI_tracking_FTL_2nd/annotations/instances_caronly_train_with_predictions.json'
     },
     'coco_KITTI_object_train_with_prediction_2nd_boot_ftl':{
         _IM_DIR:
@@ -156,7 +156,15 @@ _DATASETS = {
         _IM_DIR:
             _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
         _ANN_FN:
-            _DATA_DIR + '/GTA_Pascal_format/Annotations/instances_caronly_train.json',
+            _DATA_DIR + '/GTA_Pascal_format/annotations/instances_caronly_train.json',
+        _DEVKIT_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
+    },
+    'voc_GTA_caronly_val':{
+        _IM_DIR:
+            _DATA_DIR + '/GTA_Pascal_format/JPEGImages',
+        _ANN_FN:
+            _DATA_DIR + '/GTA_Pascal_format/annotations/instances_caronly_val.json',
         _DEVKIT_DIR:
             _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
     },
