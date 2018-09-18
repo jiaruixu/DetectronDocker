@@ -99,10 +99,16 @@ container-fn detectron-faster-rcnn-train \
 
 ```
 container-fn detectron-faster-rcnn-train \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_train_with_prediction.yaml \
-  --output-path /mnt/fcav/self_training/final_results/baseline_kitti_object_train_with_prediction \
-  --region-proposal-path /mnt/fcav/self_training/final_results/region_proposals_GTA200k \
-  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/GTA200kPretrained/model_wo_fast_rcnn.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_f_not_freeze_2nd_boot_union.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_2nd_boot_union \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-train \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_baseline_f_not_freeze_2nd_boot_selected_ss.yaml \
+  --output-path /mnt/fcav/self_training/final_results/baseline_2nd_boot_selected_ss \
+  --pretrained-weights /mnt/fcav/self_training/final_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 Get upperbound2
@@ -214,19 +220,12 @@ upperbound1
 
 ```
 container-fn detectron-faster-rcnn-eval \
-  --config /mnt/fcav/self_training/object_detection/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_upperbound1_eval.yaml \
-  --output-path /mnt/fcav/self_training/object_detection/upperbound1_new/eval \
-  --test-weights /mnt/fcav/self_training/object_detection/upperbound1_new/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_train/generalized_rcnn
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/upperbound1/eval \
+  --test-weights /mnt/fcav/self_training/final_results/upperbound1/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_train/generalized_rcnn
 ```
 
 localization errors
-
-```
-container-fn detectron-faster-rcnn-eval \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
-  --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_10fp/eval \
-  --test-weights /mnt/fcav/self_training/final_results/localization_error_no_fn_with_10fp/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_tp_preds_no_fn_with_10fp/generalized_rcnn
-```
 
 ```
 container-fn detectron-faster-rcnn-eval \
@@ -238,8 +237,15 @@ container-fn detectron-faster-rcnn-eval \
 ```
 container-fn detectron-faster-rcnn-eval \
   --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
-  --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_15fp/eval \
-  --test-weights /mnt/fcav/self_training/final_results/localization_error_no_fn_with_15fp/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_tp_preds_no_fn_with_15fp/generalized_rcnn
+  --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn/eval \
+  --test-weights /mnt/fcav/self_training/final_results/localization_error_no_fn/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_tp_preds_no_fn/generalized_rcnn
+```
+
+```
+container-fn detectron-faster-rcnn-eval \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/localization_error_no_fn_with_10fp/eval \
+  --test-weights /mnt/fcav/self_training/final_results/localization_error_no_fn_with_10fp/train/voc_GTA_caronly_train_sample8000_coco_KITTI_caronly_tp_preds_no_fn_with_10fp/generalized_rcnn
 ```
 
 new-scheme
@@ -374,22 +380,29 @@ container-fn detectron-faster-rcnn-feedforward  \
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_KITTI_train.yaml \
-  --output-path /mnt/fcav/self_training/final_results/baseline_f_not_freeze/predictions8999 \
-  --test-weights /mnt/fcav/self_training/final_results/baseline_f_not_freeze/train/model_iter8999.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_R-50-FPN_2x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/check_R_50_X_101/R50 \
+  --test-weights /mnt/fcav/self_training/final_results/check_R_50_X_101/R50/model_final.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_lowerbound_evalKITTI1000.yaml \
-  --output-path /mnt/fcav/self_training/final_results/lowerbound/predictions/SCALE375 \
-  --test-weights /mnt/fcav/self_training/final_results/lowerbound/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_final.pkl
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/check_R_50_X_101/X101 \
+  --test-weights /mnt/fcav/self_training/final_results/check_R_50_X_101/X101/model_final.pkl
 ```
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_cityscapes_train.yaml \
-  --output-path /mnt/fcav/self_training/final_results/cityscapes/baseline_not_freeze/predictions10999 \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000.yaml \
+  --output-path /mnt/fcav/self_training/final_results/check_R_50_X_101/X101  \
+  --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_iter34999.pkl
+```
+
+```
+container-fn detectron-faster-rcnn-predictions \
+  --config /mnt/fcav/self_training/final_results/configs/e2e_faster_rcnn_X-101-64x4d-FPN_1x_evalKITTI1000_not_aug_not_scale.yaml \
+  --output-path /mnt/fcav/self_training/final_results/lowerbound/prediction35k_not_aug_not_change_scale \
   --test-weights /mnt/fcav/self_training/object_detection/lowerbound_200k_trainval/train/voc_GTA_caronly_train_voc_GTA_caronly_val/generalized_rcnn/model_iter34999.pkl
 ```
 

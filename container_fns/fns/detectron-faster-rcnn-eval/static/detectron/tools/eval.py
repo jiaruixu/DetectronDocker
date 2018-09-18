@@ -95,7 +95,7 @@ def checkNewCheckpoint(args, cfg, logger):
             file_processed = deepcopy(files)
         else:
             logger.info('{} waiting for new checkpoint...'.format(time.ctime()))
-            time.sleep(1520)
+            time.sleep(120)
 
 
 def sortMethod(f):
