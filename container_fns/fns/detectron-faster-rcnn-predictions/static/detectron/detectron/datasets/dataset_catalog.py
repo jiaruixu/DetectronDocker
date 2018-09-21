@@ -216,6 +216,12 @@ _DATASETS = {
         _RAW_DIR:
             _DATA_DIR + '/cityscapes/raw'
     },
+    'cityscapes_caronly_train_ftl': {
+        _IM_DIR:
+            _DATA_DIR + '/cityscapes_ftl/images',
+        _ANN_FN:
+            _DATA_DIR + '/cityscapes_ftl/annotations/instances_caronly_train_with_predictions_ftl.json',
+    },
     'cityscapes_caronly_train1367': {
         _IM_DIR:
             _DATA_DIR + '/cityscapes/images',
