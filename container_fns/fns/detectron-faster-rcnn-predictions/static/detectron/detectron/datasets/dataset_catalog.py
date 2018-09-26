@@ -208,6 +208,22 @@ _DATASETS = {
         _DEVKIT_DIR:
             _DATA_DIR + '/GTA_Pascal_format/VOCdevkit2012'
     },
+    'cityscapes_train_all_classes': {
+        _IM_DIR:
+            _DATA_DIR + '/cityscapes/images',
+        _ANN_FN:
+            _DATA_DIR + '/cityscapes/annotations/instancesonly_filtered_gtFine_train_all_classes.json',
+        _RAW_DIR:
+            _DATA_DIR + '/cityscapes/raw'
+    },
+    'cityscapes_val_all_classes': {
+        _IM_DIR:
+            _DATA_DIR + '/cityscapes/images',
+        _ANN_FN:
+            _DATA_DIR + '/cityscapes/annotations/instancesonly_filtered_gtFine_val_all_classes.json',
+        _RAW_DIR:
+            _DATA_DIR + '/cityscapes/raw'
+    },
     'cityscapes_caronly_train': {
         _IM_DIR:
             _DATA_DIR + '/cityscapes/images',
