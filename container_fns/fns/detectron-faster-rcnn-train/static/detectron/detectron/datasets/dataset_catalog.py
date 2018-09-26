@@ -291,37 +291,37 @@ _DATASETS = {
         _IM_DIR:
             _DATA_DIR + '/COCO/train2014',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_train2014.json'
+            _DATA_DIR + '/COCO/annotations/instances_train2014.json'
     },
     'coco_35': {
         _IM_DIR:
             _DATA_DIR + '/COCO/val2014',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_valminusminival2014.json'
+            _DATA_DIR + '/COCO/annotations/instances_valminusminival2014.json'
     },
     'coco_115': {
         _IM_DIR:
             _DATA_DIR + '/COCO/train2017',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_train2017.json'
+            _DATA_DIR + '/COCO/annotations/instances_train2017.json'
     },
     'coco_val': {
         _IM_DIR:
             _DATA_DIR + '/COCO/val2014',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_minival2014.json'
+            _DATA_DIR + '/COCO/annotations/instances_minival2014.json'
     },
     'coco_2014_train': {
         _IM_DIR:
             _DATA_DIR + '/COCO/train2014',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_train2014_sample20000.json'
+            _DATA_DIR + '/COCO/annotations/instances_train2014_sample20000.json'
     },
     'coco_2014_val': {
         _IM_DIR:
             _DATA_DIR + '/COCO/val2014',
         _ANN_FN:
-            _DATA_DIR + '/COCO/annotations_drop/instances_val2014_sample20000.json'
+            _DATA_DIR + '/COCO/annotations/instances_val2014_sample20000.json'
     },
     'coco_2014_train_drop30': {
         _IM_DIR:
@@ -331,13 +331,13 @@ _DATASETS = {
     },
     'coco_2014_minival': {
         _IM_DIR:
-            _DATA_DIR + '/coco/coco_val2014',
+            _DATA_DIR + '/coco/val2014',
         _ANN_FN:
             _DATA_DIR + '/coco/annotations/instances_minival2014.json'
     },
     'coco_2014_valminusminival': {
         _IM_DIR:
-            _DATA_DIR + '/coco/coco_val2014',
+            _DATA_DIR + '/coco/val2014',
         _ANN_FN:
             _DATA_DIR + '/coco/annotations/instances_valminusminival2014.json'
     },
