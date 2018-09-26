@@ -287,6 +287,30 @@ _DATASETS = {
         _RAW_DIR:
             _DATA_DIR + '/cityscapes/raw'
     },
+    'coco_80': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/train2014',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/annotations_drop/instances_train2014.json'
+    },
+    'coco_35': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/val2014',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/annotations_drop/instances_valminusminival2014.json'
+    },
+    'coco_115': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/train2017',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/annotations_drop/instances_train2017.json'
+    },
+    'coco_val': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/val2014',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/annotations_drop/instances_minival2014.json'
+    },
     'coco_2014_train': {
         _IM_DIR:
             _DATA_DIR + '/COCO/train2014',
