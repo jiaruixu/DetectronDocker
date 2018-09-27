@@ -17,6 +17,17 @@ container-fn detectron-faster-rcnn-train \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
   --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/e2e_faster_rcnn_R-50-FPN_2x.yaml \
   --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train \
+  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
+```
+
+cityscapes
+
+```
+container-fn detectron-faster-rcnn-train \
+  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_Cityscapes_all_classes/retinanet_R-50-FPN_1x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_Cityscapes_all_classes/train \
+  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
 ```
 
 Get lowerbound
@@ -199,6 +210,15 @@ container-fn detectron-faster-rcnn-train \
 ```
 
 ### detectron-faster-rcnn-eval
+
+```
+container-fn detectron-faster-rcnn-eval \
+  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/eval \
+  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/train/coco_35/generalized_rcnn
+```
+
 lowerbound
 
 1 GTA 200k trained
