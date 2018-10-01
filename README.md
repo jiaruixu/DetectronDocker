@@ -15,8 +15,8 @@ COCO 35
 ```
 container-fn detectron-faster-rcnn-train \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train \
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer/e2e_faster_rcnn_R-50-FPN_2x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer/train \
   --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
 ```
 
@@ -25,9 +25,9 @@ cityscapes
 ```
 container-fn detectron-faster-rcnn-train \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_Cityscapes_all_classes/retinanet_R-50-FPN_1x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_Cityscapes_all_classes/train \
-  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
+  --config /mnt/fcav/self_training/paper_results/X-101-64x4d_Cityscapes_all_classes/e2e_faster_rcnn_X-101-64x4d-FPN_1x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/X-101-64x4d_Cityscapes_all_classes/train \
+  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/X-101-64x4d.pkl
 ```
 
 Get lowerbound
@@ -214,9 +214,25 @@ container-fn detectron-faster-rcnn-train \
 ```
 container-fn detectron-faster-rcnn-eval \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/eval \
-  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/train/coco_35/generalized_rcnn
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer/eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer/eval \
+  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer/train/train/coco_35/generalized_rcnn
+```
+
+```
+container-fn detectron-faster-rcnn-eval \
+  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
+  --config /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes_longer/eval/Cityscapes/retinanet_R-50-FPN_1x_eval.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes_longer/eval/Cityscapes \
+  --test-weights /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes_longer/train/train/cityscapes_train_all_classes/retinanet
+```
+
+```
+container-fn detectron-faster-rcnn-eval \
+  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
+  --config /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes/eval/BDD100K/retinanet_R-50-FPN_1x_eval.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes/eval/BDD100K \
+  --test-weights /mnt/fcav/self_training/paper_results/RetinaNet_Cityscapes_all_classes/train/train/cityscapes_train_all_classes/retinanet
 ```
 
 lowerbound
@@ -500,9 +516,9 @@ container-fn detectron-faster-rcnn-feedforward  \
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/predictions/coco_minival \
-  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/model_final.pkl
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/predictions/COCO_80/e2e_faster_rcnn_R-50-FPN_2x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/predictions/COCO_80 \
+  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/train/coco_35/generalized_rcnn/model_final.pkl
 ```
 
 ```

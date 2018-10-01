@@ -35,9 +35,9 @@ docker-volumes:
   - host-path: "{region-proposal-path}"
     container-path: /mnt/fcav/self_training/final_results/region_proposals_GTA200k
 
-docker-env:
-  - key: "CUDA_VISIBLE_DEVICES"
-    value: "{gpus}"
+#docker-env:
+#  - key: "CUDA_VISIBLE_DEVICES"
+#    value: "{gpus}"
 
 logfile-path: "{output-path}/e2e-training-logs.txt"
 
