@@ -38,13 +38,13 @@ _RAW_DIR = 'raw_dir'
 
 # Available datasets
 _DATASETS = {
-    'coco_bdd100k_train':{
+    'cityscapes_bdd100k_train':{
         _IM_DIR:
             _DATA_DIR + '/bdd100k/images/100k/train',
         _ANN_FN:
             _DATA_DIR + '/bdd100k/annotations/instances_train.json'
     },
-    'coco_bdd100k_val':{
+    'cityscapes_bdd100k_val':{
         _IM_DIR:
             _DATA_DIR + '/bdd100k/images/100k/val',
         _ANN_FN:
