@@ -339,6 +339,18 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/COCO/annotations/instances_minival2014.json'
     },
+    'coco_80_predictions': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/train2014',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/pseudo_annotations/instances_train_with_prediction.json'
+    },
+    'coco_80_predictions_aug': {
+        _IM_DIR:
+            _DATA_DIR + '/COCO/train2014',
+        _ANN_FN:
+            _DATA_DIR + '/COCO/pseudo_annotations/instances_train_with_prediction_aug.json'
+    },
     'coco_80_tps': {
         _IM_DIR:
             _DATA_DIR + '/COCO/train2014',
