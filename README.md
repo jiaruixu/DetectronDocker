@@ -15,32 +15,8 @@ COCO 35
 ```
 container-fn detectron-faster-rcnn-train \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer36/eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer36 \
-  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
-```
-
-```
-container-fn detectron-faster-rcnn-train \
-  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_longer/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_longer/train \
-  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
-```
-
-```
-container-fn detectron-faster-rcnn-train \
-  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fps_longer/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fps_longer/train \
-  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
-```
-
-```
-container-fn detectron-faster-rcnn-train \
-  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fns_longer/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fns_longer/train \
+  --config /mnt/fcav/self_training/paper_results/RetinaNet_R-50-FPN_COCO_35_uncertainty/retinanet_R-50-FPN_1x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/RetinaNet_R-50-FPN_COCO_35_uncertainty/train \
   --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
 ```
 
@@ -238,9 +214,9 @@ container-fn detectron-faster-rcnn-train \
 ```
 container-fn detectron-faster-rcnn-eval \
   --dataset-path /mnt/fcav/self_training/paper_results/dataset \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fps_longer/eval/COCO_eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fps_longer/eval/COCO_eval \
-  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_80_tps_fps_longer/train/train/coco_35_coco_80_tps_fps/generalized_rcnn
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer180k/eval/COCO_eval/e2e_faster_rcnn_R-50-FPN_2x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer180k/eval/COCO_eval \
+  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35_longer180k/train/train/coco_35/generalized_rcnn
 ```
 
 ```
@@ -540,9 +516,9 @@ container-fn detectron-faster-rcnn-feedforward  \
 
 ```
 container-fn detectron-faster-rcnn-predictions \
-  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/predictions_aug/COCO_80/e2e_faster_rcnn_R-50-FPN_2x.yaml \
-  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/predictions_aug/COCO_80 \
-  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_35/train/train/coco_35/generalized_rcnn/model_final.pkl
+  --config /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/ResNet-50_1x_COCO_115/e2e_faster_rcnn_R-50-FPN_1x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/ResNet-50_1x_COCO_115/eval/COCO_eval \
+  --test-weights /mnt/fcav/self_training/paper_results/ResNet-50_COCO_115/ResNet-50_1x_COCO_115/model_final.pkl
 ```
 
 ```

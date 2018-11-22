@@ -67,20 +67,22 @@ def get_retinanet_blob_names(is_training=True):
         blob_names += ['retnet_fg_num', 'retnet_bg_num']
         for lvl in range(cfg.FPN.RPN_MIN_LEVEL, cfg.FPN.RPN_MAX_LEVEL + 1):
             suffix = 'fpn{}'.format(lvl)
-            # blob_names += [
-            #     'retnet_cls_labels_' + suffix,
-            #     'retnet_roi_bbox_targets_' + suffix,
-            #     'retnet_roi_fg_bbox_locs_' + suffix,
-            # ]
             ## added by Jiarui
-            blob_names += [
-                'retnet_cls_labels_' + suffix,
-                'retnet_roi_bbox_targets_' + suffix,
-                'retnet_roi_fg_bbox_locs_' + suffix,
-                'retnet_roi_bbox_overlap_' + suffix,
-                'retnet_roi_bbox_overlap_inside_weights_' + suffix,
-                'retnet_roi_bbox_overlap_outside_weights_' + suffix,
-            ]
+            if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+                blob_names += [
+                    'retnet_cls_labels_' + suffix,
+                    'retnet_roi_bbox_targets_' + suffix,
+                    'retnet_roi_fg_bbox_locs_' + suffix,
+                    'retnet_roi_bbox_overlap_' + suffix,
+                    'retnet_roi_bbox_overlap_inside_weights_' + suffix,
+                    'retnet_roi_bbox_overlap_outside_weights_' + suffix,
+                ]
+            else:
+                blob_names += [
+                    'retnet_cls_labels_' + suffix,
+                    'retnet_roi_bbox_targets_' + suffix,
+                    'retnet_roi_fg_bbox_locs_' + suffix,
+                ]
             ## end added by Jiarui
     return blob_names
 
@@ -170,39 +172,41 @@ def add_retinanet_blobs(blobs, im_scales, roidb, image_width, image_height):
             # so we first concatenate the elements of each image to a numpy array
             # and then concatenate the two images to get the 2 x 9 x H x W
 
-            # if k.find('retnet_cls_labels') >= 0:
-            #     tmp = []
-            #     # concat anchors within an image
-            #     for i in range(0, len(v), A):
-            #         tmp.append(np.concatenate(v[i: i + A], axis=1))
-            #     # concat images
-            #     blobs[k] = np.concatenate(tmp, axis=0)
-            # else:
-            #     # for the bbox branch elements [per FPN level],
-            #     #  we have the targets and the fg boxes locations
-            #     # in the shape: M x 4 where M is the number of fg locations in a
-            #     # given image at the current FPN level. For the given level,
-            #     # the bbox predictions will be. The elements in the list are in
-            #     # order [[a0, ..., a9], [a0, ..., a9]]
-            #     # Concatenate them to form M x 4
-            #     blobs[k] = np.concatenate(v, axis=0)
             ## added by Jiarui
-            if k.find('retnet_cls_labels') >= 0 or k.find('retnet_roi_bbox_overlap') >= 0:
-                tmp = []
-                # concat anchors within an image
-                for i in range(0, len(v), A):
-                    tmp.append(np.concatenate(v[i: i + A], axis=1))
-                # concat images
-                blobs[k] = np.concatenate(tmp, axis=0)
+            if not cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+                if k.find('retnet_cls_labels') >= 0:
+                    tmp = []
+                    # concat anchors within an image
+                    for i in range(0, len(v), A):
+                        tmp.append(np.concatenate(v[i: i + A], axis=1))
+                    # concat images
+                    blobs[k] = np.concatenate(tmp, axis=0)
+                else:
+                    # for the bbox branch elements [per FPN level],
+                    #  we have the targets and the fg boxes locations
+                    # in the shape: M x 4 where M is the number of fg locations in a
+                    # given image at the current FPN level. For the given level,
+                    # the bbox predictions will be. The elements in the list are in
+                    # order [[a0, ..., a9], [a0, ..., a9]]
+                    # Concatenate them to form M x 4
+                    blobs[k] = np.concatenate(v, axis=0)
             else:
-                # for the bbox branch elements [per FPN level],
-                #  we have the targets and the fg boxes locations
-                # in the shape: M x 4 where M is the number of fg locations in a
-                # given image at the current FPN level. For the given level,
-                # the bbox predictions will be. The elements in the list are in
-                # order [[a0, ..., a9], [a0, ..., a9]]
-                # Concatenate them to form M x 4
-                blobs[k] = np.concatenate(v, axis=0)
+                if k.find('retnet_cls_labels') >= 0 or k.find('retnet_roi_bbox_overlap') >= 0:
+                    tmp = []
+                    # concat anchors within an image
+                    for i in range(0, len(v), A):
+                        tmp.append(np.concatenate(v[i: i + A], axis=1))
+                    # concat images
+                    blobs[k] = np.concatenate(tmp, axis=0)
+                else:
+                    # for the bbox branch elements [per FPN level],
+                    #  we have the targets and the fg boxes locations
+                    # in the shape: M x 4 where M is the number of fg locations in a
+                    # given image at the current FPN level. For the given level,
+                    # the bbox predictions will be. The elements in the list are in
+                    # order [[a0, ..., a9], [a0, ..., a9]]
+                    # Concatenate them to form M x 4
+                    blobs[k] = np.concatenate(v, axis=0)
             ## end adding by Jiarui
     return True
 
@@ -226,8 +230,9 @@ def _get_retinanet_blobs(
     labels = np.empty((num_inside, ), dtype=np.float32)
     labels.fill(-1)
     ## added by Jiarui
-    overlap = np.empty((num_inside, ), dtype=np.float32)
-    overlap.fill(-1)
+    if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+        overlap = np.empty((num_inside, ), dtype=np.float32)
+        overlap.fill(-1)
     ## end adding by Jiarui
     if len(gt_boxes) > 0:
         # Compute overlaps between the anchors and the gt boxes overlaps
@@ -253,21 +258,24 @@ def _get_retinanet_blobs(
         gt_inds = anchor_to_gt_argmax[anchors_with_max_overlap]
         labels[anchors_with_max_overlap] = gt_classes[gt_inds]
         ## added by Jiarui
-        overlap[anchors_with_max_overlap] = anchor_to_gt_max[anchors_with_max_overlap]
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            overlap[anchors_with_max_overlap] = anchor_to_gt_max[anchors_with_max_overlap]
         ## end adding by Jiarui
         # Fg label: above threshold IOU
         inds = anchor_to_gt_max >= cfg.RETINANET.POSITIVE_OVERLAP
         gt_inds = anchor_to_gt_argmax[inds]
         labels[inds] = gt_classes[gt_inds]
         ## added by Jiarui
-        overlap[inds] = anchor_to_gt_max[inds]
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            overlap[inds] = anchor_to_gt_max[inds]
         ## end adding by Jiarui
 
     fg_inds = np.where(labels >= 1)[0]
     bg_inds = np.where(anchor_to_gt_max < cfg.RETINANET.NEGATIVE_OVERLAP)[0]
     labels[bg_inds] = 0
     ## added by Jiarui
-    overlap[bg_inds] = 0
+    if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+        overlap[bg_inds] = 0
     ## end adding by Jiarui
     num_fg, num_bg = len(fg_inds), len(bg_inds)
 
@@ -289,7 +297,8 @@ def _get_retinanet_blobs(
         _labels = labels[start_idx:end_idx]
         _bbox_targets = bbox_targets[start_idx:end_idx, :]
         ## added by Jiarui
-        _bbox_overlap = overlap[start_idx:end_idx]
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            _bbox_overlap = overlap[start_idx:end_idx]
         ## end adding by Jiarui
         start_idx = end_idx
 
@@ -299,9 +308,13 @@ def _get_retinanet_blobs(
         _bbox_targets = _bbox_targets.reshape((1, H, W, 4)).transpose(0, 3, 1, 2)
         ## added by Jiarui
         # bbox overlap with shape (1, height, width)
-        _bbox_overlap = _bbox_overlap.reshape((1, 1, H, W))
-        _bbox_overlap_inside_weights = np.zeros((1, 1, H, W))
-        _bbox_overlap_inside_weights[_bbox_overlap > 0] = 1.0
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            _bbox_overlap = _bbox_overlap.reshape((1, 1, H, W))
+            _bbox_overlap_inside_weights = np.zeros((1, 1, H, W))
+            _bbox_overlap_inside_weights[_bbox_overlap > 0] = 1.0
+            _bbox_overlap_outside_weights = 1.0 / num_fg * np.array(
+                _bbox_overlap_inside_weights > 0, dtype=_bbox_overlap_inside_weights.dtype
+            )
         ## end adding by Jiarui
         stride = foa.stride
         w = int(im_width / stride)
@@ -326,25 +339,26 @@ def _get_retinanet_blobs(
                 _roi_bbox_targets[i, :] = _bbox_targets[:, :, y[i], x[i]]
                 _roi_fg_bbox_locs[i, :] = np.array([[0, l, y[i], x[i]]])
         ## added by Jiarui
-        _bbox_overlap_outside_weights = 1.0 / num_fg * np.array(
-            _bbox_overlap_inside_weights > 0, dtype=_bbox_overlap_inside_weights.dtype
-        )
-        blobs_out.append(
-            dict(
-                retnet_cls_labels=_labels[:, :, 0:h, 0:w].astype(np.int32),
-                retnet_roi_bbox_targets=_roi_bbox_targets.astype(np.float32),
-                retnet_roi_fg_bbox_locs=_roi_fg_bbox_locs.astype(np.float32),
-                retnet_roi_bbox_overlap=_bbox_overlap[:, :, 0:h, 0:w].astype(np.float32),
-                retnet_roi_bbox_overlap_inside_weights=_bbox_overlap_inside_weights[:, :, 0:h, 0:w].astype(np.float32),
-                retnet_roi_bbox_overlap_outside_weights=_bbox_overlap_outside_weights[:, :, 0:h, 0:w].astype(np.float32),
-            ))
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            blobs_out.append(
+                dict(
+                    retnet_cls_labels=_labels[:, :, 0:h, 0:w].astype(np.int32),
+                    retnet_roi_bbox_targets=_roi_bbox_targets.astype(np.float32),
+                    retnet_roi_fg_bbox_locs=_roi_fg_bbox_locs.astype(np.float32),
+                    retnet_roi_bbox_overlap=_bbox_overlap[:, :, 0:h, 0:w].astype(np.float32),
+                    retnet_roi_bbox_overlap_inside_weights=_bbox_overlap_inside_weights[:, :, 0:h, 0:w].astype(np.float32),
+                    retnet_roi_bbox_overlap_outside_weights=_bbox_overlap_outside_weights[:, :, 0:h, 0:w].astype(np.float32),
+                ))
+        else:
+            blobs_out.append(
+                dict(
+                    retnet_cls_labels=_labels[:, :, 0:h, 0:w].astype(np.int32),
+                    retnet_roi_bbox_targets=_roi_bbox_targets.astype(np.float32),
+                    retnet_roi_fg_bbox_locs=_roi_fg_bbox_locs.astype(np.float32),
+                ))
         ## end adding by Jiarui
     out_num_fg = np.array([num_fg + 1.0], dtype=np.float32)
     out_num_bg = (
         np.array([num_bg + 1.0]) * (cfg.MODEL.NUM_CLASSES - 1) +
         out_num_fg * (cfg.MODEL.NUM_CLASSES - 2))
     return blobs_out, out_num_fg, out_num_bg
-    # ## added by Jiarui
-    # out_num_bbox = out_num_fg + out_num_bg
-    # return blobs_out, out_num_fg, out_num_bg, out_num_bbox
-    # ## end adding by Jiarui

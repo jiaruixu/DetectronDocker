@@ -244,81 +244,115 @@ def add_fpn_retinanet_outputs(model, blobs_in, dim_in, spatial_scales):
                 bias='retnet_bbox_pred_fpn{}_b'.format(k_min)
             )
     ## added by Jiarui, uncertainty prediction
-    bbox_uncertainty_feat_list = []
-    for lvl in range(k_min, k_max + 1):
-        bl_in = blobs_in[k_max - lvl]  # blobs_in is in reversed order
-        for nconv in range(cfg.RETINANET.NUM_CONVS):
-            suffix = 'n{}_fpn{}'.format(nconv, lvl)
-            dim_in, dim_out = dim_in, dim_in
-            if lvl == k_min:
-                bl_out = model.Conv(
-                    bl_in,
-                    'retnet_bbox_uncertainty_conv_' + suffix,
-                    dim_in,
-                    dim_out,
-                    3,
-                    stride=1,
-                    pad=1,
-                    weight_init=('GaussianFill', {
-                        'std': 0.01
-                    }),
-                    bias_init=('ConstantFill', {
-                        'value': 0.
-                    })
-                )
-            else:
-                bl_out = model.ConvShared(
-                    bl_in,
-                    'retnet_bbox_uncertainty_conv_' + suffix,
-                    dim_in,
-                    dim_out,
-                    3,
-                    stride=1,
-                    pad=1,
-                    weight='retnet_bbox_uncertainty_conv_n{}_fpn{}_w'.format(
-                        nconv, k_min
-                    ),
-                    bias='retnet_bbox_uncertainty_conv_n{}_fpn{}_b'.format(
-                        nconv, k_min
+    if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+        if cfg.TRAIN.BBOX_UNCERTAINTY_SEPERATE_BRANCH_ON:
+            bbox_uncertainty_feat_list = []
+            for lvl in range(k_min, k_max + 1):
+                bl_in = blobs_in[k_max - lvl]  # blobs_in is in reversed order
+                for nconv in range(cfg.RETINANET.NUM_CONVS):
+                    suffix = 'n{}_fpn{}'.format(nconv, lvl)
+                    dim_in, dim_out = dim_in, dim_in
+                    if lvl == k_min:
+                        bl_out = model.Conv(
+                            bl_in,
+                            'retnet_bbox_uncertainty_conv_' + suffix,
+                            dim_in,
+                            dim_out,
+                            3,
+                            stride=1,
+                            pad=1,
+                            weight_init=('GaussianFill', {
+                                'std': 0.01
+                            }),
+                            bias_init=('ConstantFill', {
+                                'value': 0.
+                            })
+                        )
+                    else:
+                        bl_out = model.ConvShared(
+                            bl_in,
+                            'retnet_bbox_uncertainty_conv_' + suffix,
+                            dim_in,
+                            dim_out,
+                            3,
+                            stride=1,
+                            pad=1,
+                            weight='retnet_bbox_uncertainty_conv_n{}_fpn{}_w'.format(
+                                nconv, k_min
+                            ),
+                            bias='retnet_bbox_uncertainty_conv_n{}_fpn{}_b'.format(
+                                nconv, k_min
+                            )
+                        )
+                    bl_in = model.Relu(bl_out, bl_out)
+                    # Add octave scales and aspect ratio
+                    # At least 1 convolution for dealing different aspect ratios
+                    bl_feat = bl_in
+                bbox_uncertainty_feat_list.append(bl_feat)
+            for i, lvl in enumerate(range(k_min, k_max + 1)):
+                bbox_uncertainty = 'retnet_bbox_uncertainty_fpn{}'.format(lvl)
+                bl_feat = bbox_uncertainty_feat_list[i]
+                if lvl == k_min:
+                    model.Conv(
+                        bl_feat,
+                        bbox_uncertainty,
+                        dim_in,
+                        A,
+                        3,
+                        pad=1,
+                        stride=1,
+                        weight_init=('GaussianFill', {
+                            'std': 0.01
+                        }),
+                        bias_init=('ConstantFill', {
+                            'value': 0.
+                        })
                     )
-                )
-            bl_in = model.Relu(bl_out, bl_out)
-            # Add octave scales and aspect ratio
-            # At least 1 convolution for dealing different aspect ratios
-            bl_feat = bl_in
-        bbox_uncertainty_feat_list.append(bl_feat)
+                else:
+                    model.ConvShared(
+                        bl_feat,
+                        bbox_uncertainty,
+                        dim_in,
+                        A,
+                        3,
+                        pad=1,
+                        stride=1,
+                        weight='retnet_bbox_uncertainty_fpn{}_w'.format(k_min),
+                        bias='retnet_bbox_uncertainty_fpn{}_b'.format(k_min)
+                    )
 
-    for i, lvl in enumerate(range(k_min, k_max + 1)):
-        bbox_uncertainty = 'retnet_bbox_uncertainty_fpn{}'.format(lvl)
-        bl_feat = bbox_uncertainty_feat_list[i]
-        if lvl == k_min:
-            model.Conv(
-                bl_feat,
-                bbox_uncertainty,
-                dim_in,
-                A,
-                3,
-                pad=1,
-                stride=1,
-                weight_init=('GaussianFill', {
-                    'std': 0.01
-                }),
-                bias_init=('ConstantFill', {
-                    'value': 0.
-                })
-            )
         else:
-            model.ConvShared(
-                bl_feat,
-                bbox_uncertainty,
-                dim_in,
-                A,
-                3,
-                pad=1,
-                stride=1,
-                weight='retnet_bbox_uncertainty_fpn{}_w'.format(k_min),
-                bias='retnet_bbox_uncertainty_fpn{}_b'.format(k_min)
-            )
+            for i, lvl in enumerate(range(k_min, k_max + 1)):
+                bbox_uncertainty = 'retnet_bbox_uncertainty_fpn{}'.format(lvl)
+                bl_feat = bbox_feat_list[i]
+                if lvl == k_min:
+                    model.Conv(
+                        bl_feat,
+                        bbox_uncertainty,
+                        dim_in,
+                        A,
+                        3,
+                        pad=1,
+                        stride=1,
+                        weight_init=('GaussianFill', {
+                            'std': 0.01
+                        }),
+                        bias_init=('ConstantFill', {
+                            'value': 0.
+                        })
+                    )
+                else:
+                    model.ConvShared(
+                        bl_feat,
+                        bbox_uncertainty,
+                        dim_in,
+                        A,
+                        3,
+                        pad=1,
+                        stride=1,
+                        weight='retnet_bbox_uncertainty_fpn{}_w'.format(k_min),
+                        bias='retnet_bbox_uncertainty_fpn{}_b'.format(k_min)
+                    )
     ## end adding by Jiarui
 
 
@@ -349,18 +383,19 @@ def add_fpn_retinanet_losses(model):
         losses.append('retnet_loss_bbox_' + suffix)
 
         ## added by Jiarui, uncertainty loss
-        bbox_uncertainty_weighted_loss = model.net.SmoothL1Loss(
-            [
-                'retnet_bbox_uncertainty_' + suffix,
-                'retnet_roi_bbox_overlap_' + suffix,
-                'retnet_roi_bbox_overlap_inside_weights_' + suffix,
-                'retnet_roi_bbox_overlap_outside_weights_' + suffix
-            ],
-            'retnet_loss_uncertainty_weighted_' + suffix,
-            scale=model.GetLossScale() * cfg.RETINANET.BBOX_REG_WEIGHT
-        )
-        gradients.append(bbox_uncertainty_weighted_loss)
-        losses.append('retnet_loss_uncertainty_weighted_' + suffix)
+        if cfg.TRAIN.BBOX_UNCERTAINTY_ON:
+            bbox_uncertainty_weighted_loss = model.net.SmoothL1Loss(
+                [
+                    'retnet_bbox_uncertainty_' + suffix,
+                    'retnet_roi_bbox_overlap_' + suffix,
+                    'retnet_roi_bbox_overlap_inside_weights_' + suffix,
+                    'retnet_roi_bbox_overlap_outside_weights_' + suffix
+                ],
+                'retnet_loss_uncertainty_weighted_' + suffix,
+                scale=model.GetLossScale() * cfg.RETINANET.BBOX_REG_WEIGHT
+            )
+            gradients.append(bbox_uncertainty_weighted_loss)
+            losses.append('retnet_loss_uncertainty_weighted_' + suffix)
         ## end added by Jiarui
 
     # ==========================================================================

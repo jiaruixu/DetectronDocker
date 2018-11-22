@@ -140,6 +140,12 @@ __C.TRAIN.ASPECT_GROUPING = True
 __C.TRAIN.SOFT_SAMPLING_ON = False
 ### end added by srmani
 
+### added by Jiarui
+# Add overlap uncertainty prediction branch
+__C.TRAIN.BBOX_UNCERTAINTY_ON = False
+__C.TRAIN.BBOX_UNCERTAINTY_SEPERATE_BRANCH_ON = False
+### end added by Jiarui
+
 # ---------------------------------------------------------------------------- #
 # RPN training options
 # ---------------------------------------------------------------------------- #
