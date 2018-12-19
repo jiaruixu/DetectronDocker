@@ -20,6 +20,14 @@ container-fn detectron-faster-rcnn-train \
   --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
 ```
 
+```
+container-fn detectron-faster-rcnn-train \
+  --dataset-path /mnt/fcav/self_training/paper_results/dataset \
+  --config /mnt/fcav/self_training/paper_results/RetinaNet_R-50-FPN_COCO_35_uncertainty_no_seperate_branch/retinanet_R-50-FPN_1x.yaml \
+  --output-path /mnt/fcav/self_training/paper_results/RetinaNet_R-50-FPN_COCO_35_uncertainty_no_seperate_branch/train \
+  --pretrained-weights /mnt/fcav/self_training/paper_results/pretrained_model/ImageNetPretrained/MSRA/R-50.pkl
+```
+
 cityscapes
 
 ```

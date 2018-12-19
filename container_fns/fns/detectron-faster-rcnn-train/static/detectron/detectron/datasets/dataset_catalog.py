@@ -50,6 +50,12 @@ _DATASETS = {
         _ANN_FN:
             _DATA_DIR + '/bdd100k/annotations/instances_val.json'
     },
+    'coco_KITTI_task1_train':{
+        _IM_DIR:
+            _DATA_DIR + '/KITTI/image_2',
+        _ANN_FN:
+            _DATA_DIR + '/KITTI/annotations/instances_train.json'
+    },
     'coco_KITTI_caronly_val1000':{
         _IM_DIR:
             _DATA_DIR + '/KITTI/image_2',
