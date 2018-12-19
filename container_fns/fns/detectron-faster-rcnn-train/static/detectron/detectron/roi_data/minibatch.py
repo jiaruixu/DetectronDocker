@@ -104,12 +104,13 @@ def _get_image_blob(roidb):
         if roidb[i]['flipped']:
             im = im[:, ::-1, :]
         """Modified by Jiarui"""
-        if 'gta' in roidb[i]['image'].lower():
-            target_size = cfg.TRAIN.SCALES[0]
-        elif 'kitti' in roidb[i]['image'].lower():
-            target_size = cfg.TRAIN.SCALES[1]
-        else:
-            target_size = cfg.TRAIN.SCALES[scale_inds[i]]
+        # if 'gta' in roidb[i]['image'].lower():
+        #    target_size = cfg.TRAIN.SCALES[0]
+        # elif 'kitti' in roidb[i]['image'].lower():
+        #    target_size = cfg.TRAIN.SCALES[1]
+        #else:
+        #    target_size = cfg.TRAIN.SCALES[scale_inds[i]]
+	target_size = cfg.TRAIN.SCALES[scale_inds[i]]
         """End modified by Jiarui"""
         im, im_scale = blob_utils.prep_im_for_blob(
             im, cfg.PIXEL_MEANS, target_size, cfg.TRAIN.MAX_SIZE
